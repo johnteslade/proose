@@ -4,7 +4,7 @@ try {
     importClass(com.google.api.translate.Language)
     importClass(com.google.api.translate.Translate)
 } catch(error) {
-    application.logger.warn("Google Translate Java API not found: Translation feature unavailable.")
+    application.logger.warning("Google Translate Java API not found: Translation feature unavailable.")
 }
 document.execute('register/')
 
