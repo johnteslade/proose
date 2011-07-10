@@ -19,7 +19,8 @@ var Goose = Goose || function() {
                     var article = Public.extractor.extractContent(String(uri))
                     retval = {
                         "title": String(article.getTitle()), 
-                        "text": String(StringEscapeUtils.unescapeHtml(article.getCleanedArticleText()))
+                        "text": String(StringEscapeUtils.unescapeHtml(article.getCleanedArticleText())),
+                        "top_image": String(article.getTopImage().getImageSrc()),
                     }
                 } catch(error) {
                     var log_details = error + ": " + uri
@@ -40,7 +41,7 @@ var Goose = Goose || function() {
 	    }
 	}
     // Initialize
-    Public.config = register(Configuration, null, {'setEnableImageFetching': false})
+    Public.config = register(Configuration, null, {'setEnableImageFetching': true})
     Public.extractor = register(ContentExtractor, Public.config)
     try {
         Public.translate = register(Translate, null, {'setHttpReferrer': application.globals.get('proose.settings.httpReferrer')})
