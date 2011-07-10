@@ -22,8 +22,9 @@ var Goose = Goose || function() {
                         "text": String(StringEscapeUtils.unescapeHtml(article.getCleanedArticleText()))
                     }
                 } catch(error) {
-                    application.logger.debug(error + ": " + uri)
-                    return null
+                    var log_details = error + ": " + uri
+                    application.logger.info(log_details)
+                    return log_details
                 }
                 if (srclang && tlang) {
                     // use Google Translate Java API
