@@ -13,14 +13,29 @@ var Goose = Goose || function() {
 	    config: null,
 	    extractor: null,
 		Extractor: function() {
-    		this.extract = function(uri, srclang, tlang) {
+    		this.extract = function(uri, contents, srclang, tlang) {
                 try {
                     // use Goose to extract article title and main text
-                    var article = Public.extractor.extractContent(String(uri))
+
+                    var article, top_image
+		    if (contents)
+		{
+		    article = Public.extractor.extractContent(String(uri), String(contents))
+		}
+		else
+		{
+		    article = Public.extractor.extractContent(String(uri))
+		}
+	
+		if (article.getTopImage())
+		{
+			top_image = article.getTopImage().getImageSrc()
+		}
+
                     retval = {
                         "title": String(article.getTitle()), 
                         "text": String(StringEscapeUtils.unescapeHtml(article.getCleanedArticleText())),
-                        "top_image": String(article.getTopImage().getImageSrc()),
+                        "top_image": String(top_image),
                     }
                 } catch(error) {
                     var log_details = error + ": " + uri
